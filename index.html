@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Holiday Package Booking System | Dashboard</title>
+    <meta name="description" content="Holiday Package Booking System dashboard UI." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="page page--dashboard">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="app">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar" aria-label="Sidebar Navigation">
+        <div class="sidebar__top">
+          <a class="brand brand--sidebar" href="./index.html" aria-label="Home">
+            <img class="brand__logo" src="./assets/logo.png" alt="Gogaga Holidays" />
+          </a>
+          <button class="icon-btn sidebar__close" type="button" data-sidebar-close aria-label="Close menu">
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+
+        <nav class="sidebar__nav" aria-label="Main menu">
+          <a class="nav-item is-active" href="#dashboard" data-page="dashboard" aria-current="page">
+            <span class="nav-item__icon" aria-hidden="true">▦</span>
+            <span class="nav-item__label">Dashboard</span>
+          </a>
+          <a class="nav-item" href="#leads" data-page="leads">
+            <span class="nav-item__icon" aria-hidden="true">◎</span>
+            <span class="nav-item__label">Leads</span>
+          </a>
+          <a class="nav-item" href="#itineraries" data-page="itineraries">
+            <span class="nav-item__icon" aria-hidden="true">🗺</span>
+            <span class="nav-item__label">Itineraries</span>
+          </a>
+          <a class="nav-item" href="#reviews" data-page="reviews">
+            <span class="nav-item__icon" aria-hidden="true">★</span>
+            <span class="nav-item__label">Reviews</span>
+          </a>
+          <a class="nav-item" href="#vouchers" data-page="vouchers">
+            <span class="nav-item__icon" aria-hidden="true">🎫</span>
+            <span class="nav-item__label">Vouchers</span>
+          </a>
+          <a class="nav-item" href="#accounts" data-page="accounts">
+            <span class="nav-item__icon" aria-hidden="true">₹</span>
+            <span class="nav-item__label">Accounts</span>
+          </a>
+          <a class="nav-item" href="#reports" data-page="reports">
+            <span class="nav-item__icon" aria-hidden="true">📊</span>
+            <span class="nav-item__label">Reports</span>
+          </a>
+          <a class="nav-item" href="#support" data-page="support">
+            <span class="nav-item__icon" aria-hidden="true">🛟</span>
+            <span class="nav-item__label">Customer Support</span>
+          </a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <div class="mini-card">
+            <p class="mini-card__title">Tip</p>
+            <p class="mini-card__text">Use filters to quickly shortlist flights and packages.</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Mobile overlay -->
+      <div class="overlay" data-sidebar-close aria-hidden="true"></div>
+
+      <!-- Content area -->
+      <div class="content">
+        <!-- Topbar -->
+        <header class="topbar" aria-label="Top navigation">
+          <div class="topbar__left">
+            <button class="icon-btn" type="button" data-sidebar-open aria-label="Open menu">
+              <span aria-hidden="true">☰</span>
+            </button>
+            <div class="topbar__title">
+              <h2 class="topbar__heading">Holiday Package Booking</h2>
+              <p class="topbar__subheading">Search flights and build packages faster.</p>
+            </div>
+          </div>
+
+          <div class="topbar__right">
+            <button class="icon-btn" type="button" aria-label="Search">
+              <span aria-hidden="true">🔎</span>
+            </button>
+            <button class="icon-btn" type="button" aria-label="Notifications">
+              <span class="badge" aria-hidden="true"></span>
+              <span aria-hidden="true">🔔</span>
+            </button>
+            <div class="profile" role="button" tabindex="0" aria-label="User profile">
+              <div class="avatar" aria-hidden="true">GK</div>
+              <div class="profile__meta">
+                <p class="profile__name">Girish Kumar</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="main" id="main">
+          <!-- Dashboard View -->
+          <section class="pageview is-active" id="page-dashboard" data-pageview="dashboard">
+            <section class="overview" aria-label="Overview">
+              <div class="overview__header">
+                <div>
+                  <h3 class="overview__title">Overview</h3>
+                  <p class="overview__subtitle">Today’s snapshot and quick actions.</p>
+                </div>
+              </div>
+              <div class="overview__grid" id="overviewCards"></div>
+              <div class="overview__split">
+                <div class="panel">
+                  <header class="panel__header">
+                    <h3 class="panel__title">Recent Bookings</h3>
+                    <p class="panel__meta">Latest successful payments</p>
+                  </header>
+                  <div class="panel__body" id="recentBookings"></div>
+                </div>
+                <div class="panel">
+                  <header class="panel__header">
+                    <h3 class="panel__title">Bookings Trend</h3>
+                    <p class="panel__meta">Mock last 7 days</p>
+                  </header>
+                  <div class="panel__body">
+                    <canvas class="chart" id="dashboardChart" width="640" height="220" aria-label="Bookings trend chart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Booking System (existing) -->
+            <section class="card card--flush">
+            <div class="tabs" data-tabs="holidayType">
+              <button class="tabs__tab is-active" type="button" data-tab="indian">
+                Indian Holidays
+              </button>
+              <button class="tabs__tab" type="button" data-tab="international">
+                International Holidays
+              </button>
+            </div>
+
+            <div class="subtabs" data-tabs="packageType">
+              <button class="subtabs__tab is-active" type="button" data-tab="withFlights">
+                Package with Flights
+              </button>
+              <button class="subtabs__tab" type="button" data-tab="withoutFlights">
+                Package without Flights
+              </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+              <div class="filters__grid">
+                <div class="field">
+                  <label class="field__label" for="fromCity">From</label>
+                  <select class="field__input" id="fromCity" aria-label="From city"></select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="toCity">To</label>
+                  <select class="field__input" id="toCity" aria-label="To city"></select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="startDate">Trip Start Date</label>
+                  <input class="field__input" id="startDate" type="date" />
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="adults">Adults</label>
+                  <select class="field__input" id="adults" aria-label="Adults">
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="children">Children</label>
+                  <select class="field__input" id="children" aria-label="Children">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </div>
+
+                <div class="field field--hotel">
+                  <span class="field__label">Hotel Standard</span>
+                  <div class="segmented" role="group" aria-label="Hotel standard">
+                    <button class="segmented__btn is-active" type="button" data-segment="3">3★</button>
+                    <button class="segmented__btn" type="button" data-segment="4">4★</button>
+                    <button class="segmented__btn" type="button" data-segment="5">5★</button>
+                  </div>
+                </div>
+
+                <div class="field field--addons">
+                  <span class="field__label">Add-ons</span>
+                  <div class="addon-row">
+                    <label class="check check--small">
+                      <input class="check__input" type="checkbox" id="addLunch" />
+                      <span class="check__box" aria-hidden="true"></span>
+                      <span class="check__label">Add Lunch</span>
+                    </label>
+                    <label class="check check--small">
+                      <input class="check__input" type="checkbox" id="addDinner" />
+                      <span class="check__box" aria-hidden="true"></span>
+                      <span class="check__label">Add Dinner</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field field--action">
+                  <span class="field__label" aria-hidden="true">Search</span>
+                  <button class="btn btn--accent btn--search" type="button" id="searchBtn" aria-label="Search">
+                    <span aria-hidden="true">🔎</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Results -->
+          <section class="results">
+            <div class="summary" role="region" aria-label="Trip summary">
+              <div class="summary__left">
+                <div class="summary__item">
+                  <p class="summary__label">Departure</p>
+                  <p class="summary__value" id="summaryOutbound">—</p>
+                </div>
+                <div class="summary__divider" aria-hidden="true"></div>
+                <div class="summary__item">
+                  <p class="summary__label">Return</p>
+                  <p class="summary__value" id="summaryReturn">—</p>
+                </div>
+              </div>
+              <div class="summary__right">
+                <div class="summary__pill" id="summaryPax">—</div>
+                <div class="summary__price">
+                  <p class="summary__label">Total Price</p>
+                  <p class="summary__value summary__value--price">₹210,600</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="notice" id="flightsNotice" hidden>
+              <div class="notice__icon" aria-hidden="true">ℹ</div>
+              <div class="notice__content">
+                <p class="notice__title">Flights are hidden</p>
+                <p class="notice__text">Switch to “Package with Flights” to select outbound and return flights.</p>
+              </div>
+            </div>
+
+            <div class="results__grid">
+              <section class="panel" aria-label="Outbound flights">
+                <header class="panel__header">
+                  <h3 class="panel__title">Outbound Flights</h3>
+                  <p class="panel__meta" id="outboundMeta">—</p>
+                </header>
+
+                <div class="flight-list" id="outboundList">
+                  <!-- Flight cards injected by JS -->
+                </div>
+              </section>
+
+              <section class="panel" aria-label="Return flights">
+                <header class="panel__header">
+                  <h3 class="panel__title">Return Flights</h3>
+                  <p class="panel__meta" id="returnMeta">—</p>
+                </header>
+
+                <div class="flight-list" id="returnList">
+                  <!-- Flight cards injected by JS -->
+                </div>
+              </section>
+            </div>
+          </section>
+          </section>
+
+          <!-- Leads View -->
+          <section class="pageview" id="page-leads" data-pageview="leads" hidden></section>
+
+          <!-- Itineraries View -->
+          <section class="pageview" id="page-itineraries" data-pageview="itineraries" hidden></section>
+
+          <!-- Reviews View -->
+          <section class="pageview" id="page-reviews" data-pageview="reviews" hidden></section>
+
+          <!-- Vouchers View -->
+          <section class="pageview" id="page-vouchers" data-pageview="vouchers" hidden></section>
+
+          <!-- Accounts View -->
+          <section class="pageview" id="page-accounts" data-pageview="accounts" hidden></section>
+
+          <!-- Reports View -->
+          <section class="pageview" id="page-reports" data-pageview="reports" hidden></section>
+
+          <!-- Support View -->
+          <section class="pageview" id="page-support" data-pageview="support" hidden></section>
+
+        </main>
+
+        <footer class="footer">
+          <p class="footer__text" style="text-align: center;">© 2026 Gogaga Holidays.</p>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Booking / Payment Flow Modals (Frontend simulation) -->
+    <div class="modal" id="bookingModal" aria-hidden="true">
+      <div class="modal__backdrop" data-modal-close></div>
+      <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+        <div class="modal__header">
+          <h3 class="modal__title" id="bookingTitle">Booking Summary</h3>
+          <button class="icon-btn" type="button" data-modal-close aria-label="Close">
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+        <div class="modal__body" id="bookingBody"></div>
+        <div class="modal__footer">
+          <button class="btn" type="button" data-modal-close>Cancel</button>
+          <button class="btn btn--accent" type="button" id="proceedToPaymentBtn">Proceed to Payment</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="paymentModal" aria-hidden="true">
+      <div class="modal__backdrop" data-modal-close></div>
+      <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+        <div class="modal__header">
+          <h3 class="modal__title" id="paymentTitle">Payment</h3>
+          <button class="icon-btn" type="button" data-modal-close aria-label="Close">
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+        <div class="modal__body">
+          <div class="pay-methods" role="tablist" aria-label="Payment methods">
+            <button class="pay-methods__btn is-active" type="button" data-pay-method="card">Pay with Card</button>
+            <button class="pay-methods__btn" type="button" data-pay-method="upi">Pay with UPI</button>
+            <button class="pay-methods__btn" type="button" data-pay-method="wallet">Pay with Wallet</button>
+          </div>
+
+          <div class="pay-panels">
+            <div class="pay-panel is-active" data-pay-panel="card">
+              <div class="form form--compact">
+                <div class="form__field">
+                  <label class="form__label" for="cardNumber">Card Number</label>
+                  <input class="form__input" id="cardNumber" inputmode="numeric" placeholder="1234 5678 9012 3456" />
+                </div>
+                <div class="form__field">
+                  <label class="form__label" for="cardName">Name on Card</label>
+                  <input class="form__input" id="cardName" placeholder="Full name" />
+                </div>
+                <div class="form__row">
+                  <div class="form__field" style="flex:1">
+                    <label class="form__label" for="cardExpiry">Expiry</label>
+                    <input class="form__input" id="cardExpiry" placeholder="MM/YY" />
+                  </div>
+                  <div class="form__field" style="flex:1">
+                    <label class="form__label" for="cardCvv">CVV</label>
+                    <input class="form__input" id="cardCvv" inputmode="numeric" placeholder="123" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pay-panel" data-pay-panel="upi">
+              <div class="pay-hint">
+                <p class="pay-hint__title">UPI Payment</p>
+                <p class="pay-hint__text">Simulated UPI checkout. Click Pay to confirm.</p>
+              </div>
+            </div>
+
+            <div class="pay-panel" data-pay-panel="wallet">
+              <div class="pay-hint">
+                <p class="pay-hint__title">Wallet Payment</p>
+                <p class="pay-hint__text">Simulated wallet checkout. Click Pay to confirm.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pay-summary">
+            <p class="pay-summary__label">Amount</p>
+            <p class="pay-summary__value" id="payAmount">—</p>
+          </div>
+        </div>
+        <div class="modal__footer">
+          <button class="btn" type="button" data-modal-close>Cancel</button>
+          <button class="btn btn--primary" type="button" id="payNowBtn">
+            <span class="btn__text">Pay Now</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="successModal" aria-hidden="true">
+      <div class="modal__backdrop" data-modal-close></div>
+      <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+        <div class="modal__header">
+          <h3 class="modal__title" id="successTitle">Booking Confirmed!</h3>
+          <button class="icon-btn" type="button" data-modal-close aria-label="Close">
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+        <div class="modal__body" id="successBody"></div>
+        <div class="modal__footer">
+          <button class="btn btn--accent" type="button" data-modal-close>Done</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite" aria-relevant="additions"></div>
+
+    <!-- Generic App Modal (CRM/forms) -->
+    <div class="modal" id="appModal" aria-hidden="true">
+      <div class="modal__backdrop" data-appmodal-close></div>
+      <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">
+        <div class="modal__header">
+          <h3 class="modal__title" id="appModalTitle">—</h3>
+          <button class="icon-btn" type="button" data-appmodal-close aria-label="Close">
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+        <div class="modal__body" id="appModalBody"></div>
+        <div class="modal__footer" id="appModalFooter"></div>
+      </div>
+    </div>
+
+    <script src="./js/script.js" defer></script>
+  </body>
+</html>

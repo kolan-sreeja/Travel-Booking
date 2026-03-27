@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gogaga Holidays | Login</title>
+    <meta name="description" content="Login to Holiday Package Booking System dashboard." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="page page--auth">
+    <main class="auth">
+      <section class="auth__card" aria-label="Login">
+        <div class="auth__brand">
+          <img class="brand__logo" src="./assets/logo.png" alt="Gogaga Holidays" />
+        </div>
+
+        <header class="auth__header">
+          <h1 class="auth__title">Login to Dashboard</h1>
+          <p class="auth__subtitle">Welcome back. Please enter your details.</p>
+        </header>
+
+        <form class="form" id="loginForm" novalidate>
+          <div class="form__field">
+            <label class="form__label" for="email">Email</label>
+            <input
+              class="form__input"
+              id="email"
+              name="email"
+              type="email"
+              placeholder="name@company.com"
+              autocomplete="email"
+              required
+            />
+            <p class="form__hint" id="emailHint">Use a valid email address.</p>
+          </div>
+
+          <div class="form__field">
+            <label class="form__label" for="password">Password</label>
+            <input
+              class="form__input"
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              minlength="6"
+              required
+            />
+            <p class="form__hint">Minimum 6 characters.</p>
+          </div>
+
+          <div class="form__row">
+            <label class="check">
+              <input class="check__input" type="checkbox" id="rememberMe" />
+              <span class="check__box" aria-hidden="true"></span>
+              <span class="check__label">Remember Me</span>
+            </label>
+
+            <a class="link link--muted" href="#" aria-label="Forgot password">Forgot Password</a>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit">Login</button>
+
+          <p class="auth__fineprint">
+            By continuing, you agree to our <a class="link" href="#">Terms</a> and
+            <a class="link" href="#">Privacy Policy</a>.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <script src="./js/script.js" defer></script>
+  </body>
+</html>
